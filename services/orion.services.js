@@ -22,7 +22,7 @@ const extractOrionJobs = async (driver) => {
 
     const existingJob = await saveOrionJobToMongo(jobData);
 
-    if (existingJob.flag) jobsData.push(jobData);
+    if (!existingJob || existingJob.flag) jobsData.push(jobData);
   }
 
   jobsData.sort((a, b) => b.id - a.id);
