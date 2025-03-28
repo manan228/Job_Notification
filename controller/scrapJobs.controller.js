@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FLO_RECRUIT_URL, ORION_URL, SAVIYNT_URL } from "../constants.js";
+import { FLO_RECRUIT_URL, FROM_MAIL, ORION_URL, SAVIYNT_URL, TO_MAIL } from "../constants.js";
 import {
   extractOrionJobs,
   handleCookiePopup,
@@ -17,8 +17,8 @@ async function getSaviyntJobs(req, res) {
     const filteredJobs = await filterSaviyntJobs(data);
 
     const mailObj = {
-      to: "manan228@gmail.com",
-      from: "manan228@gmail.com",
+      to: TO_MAIL,
+      from: FROM_MAIL,
       templateId: "d-ee323574aeac44049157c50cfe6bf5e9",
       dynamic_template_data: { filteredJobs },
     };
@@ -45,8 +45,8 @@ async function scrapeOrionJobs(req, res) {
     const jobsData = await extractOrionJobs(driver);
 
     const mailObj = {
-      to: "manan228@gmail.com",
-      from: "manan228@gmail.com",
+      to: TO_MAIL,
+      from: FROM_MAIL,
       templateId: "d-2891c6a8a72d4a83857fd36807b8841e",
       dynamicTemplateData: { jobs: jobsData },
     };
@@ -69,8 +69,8 @@ async function getFloRecruitJobs(req, res) {
     const filteredJobs = await filterFloRecruitJobs(data);
 
     const mailObj = {
-      to: "manan228@gmail.com",
-      from: "manan228@gmail.com",
+      to: TO_MAIL,
+      from: FROM_MAIL,
       templateId: "d-34f7a71433e5415f87f10e2136a13088",
       dynamic_template_data: { jobs: filteredJobs },
     };

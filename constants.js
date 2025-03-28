@@ -16,3 +16,6 @@ export const SENDGRID_OBJ = {
   to: "manan228@gmail.com",
   from: "manan228@gmail.com",
 };
+
+export const TO_MAIL = "manan@shahmanan.tech"
+export const FROM_MAIL = "manan@shahmanan.tech"
