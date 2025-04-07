@@ -15,6 +15,7 @@ async function getSaviyntJobs(req, res) {
     const { data } = await axios.get(SAVIYNT_URL);
 
     const filteredJobs = await filterSaviyntJobs(data);
+    if(filteredJobs.length === 0) return res.json({ message: "No jobs found" });
 
     const mailObj = {
       to: TO_MAIL,
@@ -43,6 +44,7 @@ async function scrapeOrionJobs(req, res) {
     await loadAllJobs(driver);
 
     const jobsData = await extractOrionJobs(driver);
+    if(jobsData.length === 0) return res.json({ message: "No jobs found" });
 
     const mailObj = {
       to: TO_MAIL,
@@ -67,6 +69,7 @@ async function getFloRecruitJobs(req, res) {
     const { data } = await axios.get(FLO_RECRUIT_URL);
 
     const filteredJobs = await filterFloRecruitJobs(data);
+    if(filteredJobs.length === 0) return res.json({ message: "No jobs found" });
 
     const mailObj = {
       to: TO_MAIL,
