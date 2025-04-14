@@ -8,21 +8,17 @@ const extractOrionJobs = async (driver) => {
 
   for (let job of jobs) {
     const titleElem = await job.findElement(By.className("article-title"));
-    const categoryElem = await job.findElement(By.className("category"));
 
     const idAttr = await job.getAttribute("id");
     const id = idAttr.match(/\d+/)?.[0];
     const title = await titleElem.getText();
     const link = await titleElem.getAttribute("href");
-    const category = (await categoryElem.getText())
-      .replace("Category:", "")
-      .trim();
 
-    const jobData = { id, title, link, category };
+    const jobData = { id, title, link };
 
     const existingJob = await saveOrionJobToMongo(jobData);
 
-    if (!existingJob || existingJob.flag) jobsData.push(jobData);
+    if (existingJob.flag) jobsData.push(existingJob);
   }
 
   jobsData.sort((a, b) => b.id - a.id);
@@ -33,9 +29,9 @@ const extractOrionJobs = async (driver) => {
 
 const saveOrionJobToMongo = async (jobData) => {
   try {
-    const existingJob = await Orion.findOne({ id: jobData.id });
+    let existingJob = await Orion.findOne({ id: jobData.id }).lean();
 
-    if (!existingJob) await Orion.create(jobData);
+    if (!existingJob) existingJob = await Orion.create(jobData).toObject();
 
     return existingJob;
   } catch (err) {

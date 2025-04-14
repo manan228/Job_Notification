@@ -50,7 +50,7 @@ async function scrapeOrionJobs(req, res) {
       to: TO_MAIL,
       from: FROM_MAIL,
       templateId: "d-2891c6a8a72d4a83857fd36807b8841e",
-      dynamicTemplateData: { jobs: jobsData },
+      dynamicTemplateData: { jobs: jobsData, collection: "orion" },
     };
 
     await sendEmail(mailObj);
